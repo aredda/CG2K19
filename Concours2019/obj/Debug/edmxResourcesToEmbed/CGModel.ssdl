@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CGModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CGModelStoreContainer">
+    <EntitySet Name="AccomdationDatas" EntityType="CGModel.Store.AccomdationDatas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AccomdationTypes" EntityType="CGModel.Store.AccomdationTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AccomndationPictures" EntityType="CGModel.Store.AccomndationPictures" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="CGModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="CGModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__Accomdati__Accom__182C9B23" Association="CGModel.Store.FK__Accomdati__Accom__182C9B23">
+      <End Role="AccomdationType" EntitySet="AccomdationTypes" />
+      <End Role="AccomdationData" EntitySet="AccomdationDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Accomdati__Added__1920BF5C" Association="CGModel.Store.FK__Accomdati__Added__1920BF5C">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AccomdationData" EntitySet="AccomdationDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Accomdati__UserE__1A14E395" Association="CGModel.Store.FK__Accomdati__UserE__1A14E395">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AccomdationData" EntitySet="AccomdationDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Accomndat__Accom__1B0907CE" Association="CGModel.Store.FK__Accomndat__Accom__1B0907CE">
+      <End Role="AccomdationType" EntitySet="AccomdationTypes" />
+      <End Role="AccomndationPictures" EntitySet="AccomndationPictures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="CGModel.Store.FK_User_Role">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AccomdationDatas">
+    <Key>
+      <PropertyRef Name="AccomdationID" />
+    </Key>
+    <Property Name="AccomdationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserEmail" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="StarDate" Type="datetime" Nullable="true" />
+    <Property Name="EndDate" Type="datetime" Nullable="true" />
+    <Property Name="AddedByEmail" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="AccomdationTypeID" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="AccomdationTypes">
+    <Key>
+      <PropertyRef Name="AccomndationTypeID" />
+    </Key>
+    <Property Name="AccomndationTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccomndationType" Type="varchar" Nullable="true" MaxLength="250" />
+    <Property Name="AccomndationPricePerNight" Type="float" Nullable="true" />
+  </EntityType>
+  <EntityType Name="AccomndationPictures">
+    <Key>
+      <PropertyRef Name="PictureID" />
+    </Key>
+    <Property Name="PictureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccomndationTypeID" Type="int" Nullable="true" />
+    <Property Name="PicturePath" Type="varchar" Nullable="true" MaxLength="250" />
+    <Property Name="PictureTitle" Type="varchar" Nullable="true" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="nvarchar" Nullable="false" MaxLength="2" />
+    <Property Name="RoleName" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="FullName" Type="varchar" Nullable="true" MaxLength="200" />
+    <Property Name="Gender" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+    <Property Name="MobileNo" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Photo" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="RoleID" Type="nvarchar" Nullable="false" MaxLength="2" />
+  </EntityType>
+  <Association Name="FK__Accomdati__Accom__182C9B23">
+    <End Role="AccomdationType" Type="CGModel.Store.AccomdationTypes" Multiplicity="0..1" />
+    <End Role="AccomdationData" Type="CGModel.Store.AccomdationDatas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccomdationType">
+        <PropertyRef Name="AccomndationTypeID" />
+      </Principal>
+      <Dependent Role="AccomdationData">
+        <PropertyRef Name="AccomdationTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Accomdati__Added__1920BF5C">
+    <End Role="Users" Type="CGModel.Store.Users" Multiplicity="0..1" />
+    <End Role="AccomdationData" Type="CGModel.Store.AccomdationDatas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="AccomdationData">
+        <PropertyRef Name="AddedByEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Accomdati__UserE__1A14E395">
+    <End Role="Users" Type="CGModel.Store.Users" Multiplicity="0..1" />
+    <End Role="AccomdationData" Type="CGModel.Store.AccomdationDatas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="AccomdationData">
+        <PropertyRef Name="UserEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Accomndat__Accom__1B0907CE">
+    <End Role="AccomdationType" Type="CGModel.Store.AccomdationTypes" Multiplicity="0..1" />
+    <End Role="AccomndationPictures" Type="CGModel.Store.AccomndationPictures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccomdationType">
+        <PropertyRef Name="AccomndationTypeID" />
+      </Principal>
+      <Dependent Role="AccomndationPictures">
+        <PropertyRef Name="AccomndationTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Roles" Type="CGModel.Store.Roles" Multiplicity="1" />
+    <End Role="Users" Type="CGModel.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

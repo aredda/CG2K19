@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CGModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CGModelStoreContainer">
+    <EntitySet Name="AccomdationDatas" EntityType="CGModel.Store.AccomdationDatas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AccomdationTypes" EntityType="CGModel.Store.AccomdationTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AccomndationPictures" EntityType="CGModel.Store.AccomndationPictures" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="CGModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="CGModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__Accomdati__Accom__182C9B23" Association="CGModel.Store.FK__Accomdati__Accom__182C9B23">
+      <End Role="AccomdationType" EntitySet="AccomdationTypes" />
+      <End Role="AccomdationData" EntitySet="AccomdationDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Accomdati__Added__1920BF5C" Association="CGModel.Store.FK__Accomdati__Added__1920BF5C">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AccomdationData" EntitySet="AccomdationDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Accomdati__UserE__1A14E395" Association="CGModel.Store.FK__Accomdati__UserE__1A14E395">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AccomdationData" EntitySet="AccomdationDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Accomndat__Accom__1B0907CE" Association="CGModel.Store.FK__Accomndat__Accom__1B0907CE">
+      <End Role="AccomdationType" EntitySet="AccomdationTypes" />
+      <End Role="AccomndationPictures" EntitySet="AccomndationPictures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="CGModel.Store.FK_User_Role">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AccomdationDatas">
+    <Key>
+      <PropertyRef Name="AccomdationID" />
+    </Key>
+    <Property Name="AccomdationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserEmail" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="StarDate" Type="datetime" Nullable="true" />
+    <Property Name="EndDate" Type="datetime" Nullable="true" />
+    <Property Name="AddedByEmail" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="AccomdationTypeID" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="AccomdationTypes">
+    <Key>
+      <PropertyRef Name="AccomndationTypeID" />
+    </Key>
+    <Property Name="AccomndationTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccomndationType" Type="varchar" Nullable="true" MaxLength="250" />
+    <Property Name="AccomndationPricePerNight" Type="float" Nullable="true" />
+  </EntityType>
+  <EntityType Name="AccomndationPictures">
+    <Key>
+      <PropertyRef Name="PictureID" />
+    </Key>
+    <Property Name="PictureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccomndationTypeID" Type="int" Nullable="true" />
+    <Property Name="PicturePath" Type="varchar" Nullable="true" MaxLength="250" />
+    <Property Name="PictureTitle" Type="varchar" Nullable="true" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="nvarchar" Nullable="false" MaxLength="2" />
+    <Property Name="RoleName" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="FullName" Type="varchar" Nullable="true" MaxLength="200" />
+    <Property Name="Gender" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+    <Property Name="MobileNo" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Photo" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="RoleID" Type="nvarchar" Nullable="false" MaxLength="2" />
+  </EntityType>
+  <Association Name="FK__Accomdati__Accom__182C9B23">
+    <End Role="AccomdationType" Type="CGModel.Store.AccomdationTypes" Multiplicity="0..1" />
+    <End Role="AccomdationData" Type="CGModel.Store.AccomdationDatas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccomdationType">
+        <PropertyRef Name="AccomndationTypeID" />
+      </Principal>
+      <Dependent Role="AccomdationData">
+        <PropertyRef Name="AccomdationTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Accomdati__Added__1920BF5C">
+    <End Role="Users" Type="CGModel.Store.Users" Multiplicity="0..1" />
+    <End Role="AccomdationData" Type="CGModel.Store.AccomdationDatas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="AccomdationData">
+        <PropertyRef Name="AddedByEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Accomdati__UserE__1A14E395">
+    <End Role="Users" Type="CGModel.Store.Users" Multiplicity="0..1" />
+    <End Role="AccomdationData" Type="CGModel.Store.AccomdationDatas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="AccomdationData">
+        <PropertyRef Name="UserEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Accomndat__Accom__1B0907CE">
+    <End Role="AccomdationType" Type="CGModel.Store.AccomdationTypes" Multiplicity="0..1" />
+    <End Role="AccomndationPictures" Type="CGModel.Store.AccomndationPictures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccomdationType">
+        <PropertyRef Name="AccomndationTypeID" />
+      </Principal>
+      <Dependent Role="AccomndationPictures">
+        <PropertyRef Name="AccomndationTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Roles" Type="CGModel.Store.Roles" Multiplicity="1" />
+    <End Role="Users" Type="CGModel.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CGModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CG_Regional_2019Entities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="AccomdationDatas" EntityType="CGModel.AccomdationData" />
+          <EntitySet Name="AccomdationTypes" EntityType="CGModel.AccomdationType" />
+          <EntitySet Name="AccomndationPictures" EntityType="CGModel.AccomndationPicture" />
+          <EntitySet Name="Roles" EntityType="CGModel.Role" />
+          <EntitySet Name="Users" EntityType="CGModel.User" />
+          <AssociationSet Name="FK__Accomdati__Accom__182C9B23" Association="CGModel.FK__Accomdati__Accom__182C9B23">
+            <End Role="AccomdationType" EntitySet="AccomdationTypes" />
+            <End Role="AccomdationData" EntitySet="AccomdationDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Accomdati__Added__1920BF5C" Association="CGModel.FK__Accomdati__Added__1920BF5C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AccomdationData" EntitySet="AccomdationDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Accomdati__UserE__1A14E395" Association="CGModel.FK__Accomdati__UserE__1A14E395">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AccomdationData" EntitySet="AccomdationDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Accomndat__Accom__1B0907CE" Association="CGModel.FK__Accomndat__Accom__1B0907CE">
+            <End Role="AccomdationType" EntitySet="AccomdationTypes" />
+            <End Role="AccomndationPictures" EntitySet="AccomndationPictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="CGModel.FK_User_Role">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AccomdationData">
+          <Key>
+            <PropertyRef Name="AccomdationID" />
+          </Key>
+          <Property Name="AccomdationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="StarDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedByEmail" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="AccomdationTypeID" Type="Int32" />
+          <NavigationProperty Name="AccomdationType" Relationship="CGModel.FK__Accomdati__Accom__182C9B23" FromRole="AccomdationData" ToRole="AccomdationType" />
+          <NavigationProperty Name="User" Relationship="CGModel.FK__Accomdati__Added__1920BF5C" FromRole="AccomdationData" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="CGModel.FK__Accomdati__UserE__1A14E395" FromRole="AccomdationData" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="AccomdationType">
+          <Key>
+            <PropertyRef Name="AccomndationTypeID" />
+          </Key>
+          <Property Name="AccomndationTypeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="AccomndationType" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="AccomndationPricePerNight" Type="Double" />
+          <NavigationProperty Name="AccomdationDatas" Relationship="CGModel.FK__Accomdati__Accom__182C9B23" FromRole="AccomdationType" ToRole="AccomdationData" />
+          <NavigationProperty Name="AccomndationPictures" Relationship="CGModel.FK__Accomndat__Accom__1B0907CE" FromRole="AccomdationType" ToRole="AccomndationPictures" />
+        </EntityType>
+        <EntityType Name="AccomndationPicture">
+          <Key>
+            <PropertyRef Name="PictureID" />
+          </Key>
+          <Property Name="PictureID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="AccomndationTypeID" Type="Int32" />
+          <Property Name="PicturePath" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="PictureTitle" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="AccomdationType" Relationship="CGModel.FK__Accomndat__Accom__1B0907CE" FromRole="AccomndationPictures" ToRole="AccomdationType" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="String" Nullable="false" MaxLength="2" Unicode="true" FixedLength="false" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Users" Relationship="CGModel.FK_User_Role" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FullName" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MobileNo" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Photo" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="RoleID" Type="String" Nullable="false" MaxLength="2" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AccomdationDatas" Relationship="CGModel.FK__Accomdati__Added__1920BF5C" FromRole="Users" ToRole="AccomdationData" />
+          <NavigationProperty Name="AccomdationDatas1" Relationship="CGModel.FK__Accomdati__UserE__1A14E395" FromRole="Users" ToRole="AccomdationData" />
+          <NavigationProperty Name="Role" Relationship="CGModel.FK_User_Role" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK__Accomdati__Accom__182C9B23">
+          <End Role="AccomdationType" Type="CGModel.AccomdationType" Multiplicity="0..1" />
+          <End Role="AccomdationData" Type="CGModel.AccomdationData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccomdationType">
+              <PropertyRef Name="AccomndationTypeID" />
+            </Principal>
+            <Dependent Role="AccomdationData">
+              <PropertyRef Name="AccomdationTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Accomdati__Added__1920BF5C">
+          <End Role="Users" Type="CGModel.User" Multiplicity="0..1" />
+          <End Role="AccomdationData" Type="CGModel.AccomdationData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="AccomdationData">
+              <PropertyRef Name="AddedByEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Accomdati__UserE__1A14E395">
+          <End Role="Users" Type="CGModel.User" Multiplicity="0..1" />
+          <End Role="AccomdationData" Type="CGModel.AccomdationData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="AccomdationData">
+              <PropertyRef Name="UserEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Accomndat__Accom__1B0907CE">
+          <End Role="AccomdationType" Type="CGModel.AccomdationType" Multiplicity="0..1" />
+          <End Role="AccomndationPictures" Type="CGModel.AccomndationPicture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccomdationType">
+              <PropertyRef Name="AccomndationTypeID" />
+            </Principal>
+            <Dependent Role="AccomndationPictures">
+              <PropertyRef Name="AccomndationTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Roles" Type="CGModel.Role" Multiplicity="1" />
+          <End Role="Users" Type="CGModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CGModelStoreContainer" CdmEntityContainer="CG_Regional_2019Entities">
+    <EntitySetMapping Name="AccomdationDatas">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.AccomdationData)">
+        <MappingFragment StoreEntitySet="AccomdationDatas">
+          <ScalarProperty Name="AccomdationID" ColumnName="AccomdationID" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="StarDate" ColumnName="StarDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="AddedByEmail" ColumnName="AddedByEmail" />
+          <ScalarProperty Name="AccomdationTypeID" ColumnName="AccomdationTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccomdationTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.AccomdationType)">
+        <MappingFragment StoreEntitySet="AccomdationTypes">
+          <ScalarProperty Name="AccomndationTypeID" ColumnName="AccomndationTypeID" />
+          <ScalarProperty Name="AccomndationType" ColumnName="AccomndationType" />
+          <ScalarProperty Name="AccomndationPricePerNight" ColumnName="AccomndationPricePerNight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccomndationPictures">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.AccomndationPicture)">
+        <MappingFragment StoreEntitySet="AccomndationPictures">
+          <ScalarProperty Name="PictureID" ColumnName="PictureID" />
+          <ScalarProperty Name="AccomndationTypeID" ColumnName="AccomndationTypeID" />
+          <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
+          <ScalarProperty Name="PictureTitle" ColumnName="PictureTitle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.Role)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

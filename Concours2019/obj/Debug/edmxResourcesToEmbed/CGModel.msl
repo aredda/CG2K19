@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CGModelStoreContainer" CdmEntityContainer="CG_Regional_2019Entities">
+    <EntitySetMapping Name="AccomdationDatas">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.AccomdationData)">
+        <MappingFragment StoreEntitySet="AccomdationDatas">
+          <ScalarProperty Name="AccomdationID" ColumnName="AccomdationID" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="StarDate" ColumnName="StarDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="AddedByEmail" ColumnName="AddedByEmail" />
+          <ScalarProperty Name="AccomdationTypeID" ColumnName="AccomdationTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccomdationTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.AccomdationType)">
+        <MappingFragment StoreEntitySet="AccomdationTypes">
+          <ScalarProperty Name="AccomndationTypeID" ColumnName="AccomndationTypeID" />
+          <ScalarProperty Name="AccomndationType" ColumnName="AccomndationType" />
+          <ScalarProperty Name="AccomndationPricePerNight" ColumnName="AccomndationPricePerNight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccomndationPictures">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.AccomndationPicture)">
+        <MappingFragment StoreEntitySet="AccomndationPictures">
+          <ScalarProperty Name="PictureID" ColumnName="PictureID" />
+          <ScalarProperty Name="AccomndationTypeID" ColumnName="AccomndationTypeID" />
+          <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
+          <ScalarProperty Name="PictureTitle" ColumnName="PictureTitle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.Role)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(CGModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
